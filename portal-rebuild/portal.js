@@ -124,8 +124,8 @@ if (introWords.length && introSection) {
 if (overlayInner && introSection) {
   ScrollTrigger.create({
     trigger: introSection,
-    start: '55% top',
-    end: '88% top',
+    start: '40% top',
+    end: '80% top',
     scrub: 1.2,
     onUpdate(self) {
       const pct = Math.round((1 - self.progress) * 100);
