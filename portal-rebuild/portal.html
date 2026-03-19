@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal Space Systems</title>
+<meta name="description" content="Supernova — a maneuverable, solar-thermal spacecraft engineered for persistent delta-v, on-demand autonomy, and real-time control.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portal.css">
+</head>
+<body>
+
+<!-- ── NAVBAR ──────────────────────────────────────────────────────────── -->
+<nav class="navbar" role="banner">
+  <div class="container">
+    <div class="nav-content">
+      <a href="/" class="nav-logo" aria-label="Portal Space Systems">
+        <svg id="portalLogo" viewBox="0 0 154 26" width="100%" height="auto"
+             xmlns="http://www.w3.org/2000/svg" style="cursor:pointer;display:block;">
+          <defs><style>.st0{fill-rule:evenodd}.st0,.st1{fill:currentColor}</style></defs>
+          <path class="st0" d="M78.6,23.4c-.1,0-.2,0-.3,0-1.2,0-2.4,0-3.6,0-.2,0-.4-.1-.5-.3-2.1-3.1-4.1-6.1-6.2-9.2,0,0,0-.2-.2-.4.2,0,.4,0,.6,0,1.1,0,2.3,0,3.4-.3,1.5-.3,2.2-1.2,2.3-2.8,0-.5,0-1,0-1.4-.2-1.1-.9-1.9-2-2.2-.7-.2-1.5-.3-2.2-.3-1.7,0-3.3,0-5,0-.4,0-.5.1-.5.5,0,5.2,0,10.5,0,15.7,0,.4-.1.5-.5.5-.9,0-1.9,0-2.8,0-.3,0-.4,0-.4-.4,0-6.4,0-12.8,0-19.2,0-.3,0-.5.3-.4,3.5,0,7,0,10.6.1,1.2,0,2.4.4,3.5.9,1.4.7,2.3,1.9,2.7,3.4.4,1.7.4,3.4-.2,5-.6,1.6-1.7,2.6-3.2,3.2-.4.2-.5.3-.2.6,1.5,2.2,3,4.4,4.5,6.6,0,0,0,0,0,.1Z"/>
+          <path class="st0" d="M109.2,23.3c.4-1,.8-2,1.3-3,1.8-4.4,3.7-8.7,5.5-13.1.5-1.2,1-2.3,1.5-3.5.1-.3.3-.4.6-.4,1.4,0,2.7,0,4.1,0,.3,0,.4.1.5.4,1.5,3.7,3.1,7.3,4.6,11,1.2,2.7,2.3,5.5,3.5,8.2.1.3.1.5-.3.5-1.1,0-2.3,0-3.4,0-.3,0-.4,0-.5-.4-2-4.8-4-9.7-5.9-14.5-.1-.3-.2-.6-.4-.9,0,0-.1-.2-.2-.3,0,0-.1.2-.2.2-.6,1.6-1.3,3.1-1.9,4.7-1.5,3.6-2.9,7.2-4.4,10.7,0,.1-.3.3-.4.3-1.2,0-2.5,0-3.7,0,0,0-.1,0-.2,0Z"/>
+          <path class="st0" d="M5.4,3.4c1.8,0,3.7,0,5.5.2,1,.1,2.1.5,3,.9,1.5.7,2.4,2,2.7,3.6.5,2.1.4,4.2-.6,6.2-.7,1.2-1.7,1.9-3,2.4-1.3.5-2.7.6-4.1.7-1.5,0-3.1,0-4.6,0-.5,0-.6.1-.6.6,0,1.7,0,3.4,0,5.1,0,.4-.1.5-.5.5-.9,0-1.8,0-2.8,0-.4,0-.5,0-.5-.5,0-2.8,0-5.6,0-8.4,0-.4.1-.5.5-.5,2.6,0,5.2,0,7.8,0,.6,0,1.2,0,1.8-.1,2.4-.4,3.3-1.9,3-4.2-.2-2-1.5-2.8-3.5-3-.8,0-1.6,0-2.4,0-2.2,0-4.4,0-6.6,0-.4,0-.5,0-.5-.5C0,5.4,0,4.7,0,3.9c0-.4,0-.5.5-.5,1.6,0,3.2,0,4.8,0Z"/>
+          <path class="st0" d="M96.4,15.1c0,2.6,0,5.2,0,7.8,0,.4-.1.5-.5.5-.9,0-1.8,0-2.7,0-.4,0-.5,0-.5-.5,0-5.2,0-10.5,0-15.7,0-.5-.1-.6-.6-.6-1.8,0-3.6,0-5.4,0-.4,0-.5-.1-.5-.5,0-.8,0-1.6,0-2.4,0-.3.1-.4.4-.4,5.2,0,10.5,0,15.7,0,.3,0,.4.1.4.4,0,.8,0,1.6,0,2.4,0,.3-.1.4-.4.4-1.8,0-3.6,0-5.4,0-.4,0-.6.1-.5.5,0,2.6,0,5.3,0,7.9Z"/>
+          <path class="st0" d="M139.7,13.4c0-3.2,0-6.3,0-9.5,0-.4,0-.6.5-.5.9,0,1.8,0,2.7,0,.4,0,.5.1.5.5,0,5.2,0,10.4,0,15.5,0,.5.1.7.6.6,3.1,0,6.3,0,9.4,0,.5,0,.6.1.5.6,0,.8,0,1.6,0,2.4,0,.3,0,.4-.4.4-4.5,0-9,0-13.4,0-.4,0-.4-.1-.4-.4,0-3.2,0-6.4,0-9.6Z"/>
+          <path class="st1" id="rotatingPath" d="M50.2,16.2c-.7,2.2-1.9,4.1-3.6,5.6-1.4,1.2-2.9,2-4.6,2.5-1.8.5-3.7.6-5.6.2-2.6-.5-4.8-1.7-6.5-3.8-3.3-3.8-3-9.7.7-13.1,2.1-2,4.6-2.9,7.5-2.7,4,.4,7,3.6,6.7,7.6-.2,2.7-2.5,4.9-5.1,4.9-.1,0-.3,0-.4,0,.5-.3,1-.6,1.5-.9,2.4-1.9,2.7-6.3-.6-8.3-3-1.8-6.9-.9-8.9,2.2-2.2,3.5-1.3,7.8,1.9,10.3,2.6,2,5.6,2.4,8.8,1.4,3-1,5.1-2.9,6.4-5.8,1.4-3,1.4-6,.2-9-.7-1.8-1.9-3.3-3.3-4.6-.4-.4-.8-.7-1.2-1,0,0,0,0,0-.1.2,0,.3.2.5.3,2.9,1.8,4.8,4.4,5.5,7.8.5,2.2.5,4.4-.1,6.6ZM29,7.7c2.8-3.5,7.8-5.2,12.1-3.3,3.9,1.7,5.9,6,4.5,9.9-1.3,3.7-5.2,5.6-8.7,4.2-1.9-.8-3.2-2.5-3.3-4.5,0-2.4.9-4.1,3-5,.1,0,.2-.1.3-.2,0,0-1.1,0-1.6,0-2.3.7-3.9,2.8-3.9,5.2,0,3,2.2,5.9,5.1,6.7,2.3.7,4.5.4,6.7-.6,4.4-2.1,6.5-7.6,4.7-12.1-1.1-2.8-3.1-4.7-5.9-5.8-3-1.2-6.1-1.3-9.2,0-4.1,1.8-6.5,4.9-7.2,9.4-.5,3.4.3,6.6,2.3,9.5,1,1.5,2.4,2.6,3.9,3.4-.4-.4-.9-1-1.5-1.5-4.5-4.2-4.8-10.9-1.3-15.5Z"/>
+        </svg>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#" class="nav-link is--active hover-underline-lr">Home</a>
+        <a href="#" class="nav-link hover-underline-lr">About</a>
+        <a href="#" class="nav-link hover-underline-lr">Careers</a>
+        <a href="#" class="nav-link hover-underline-lr">News</a>
+      </nav>
+      <a href="#contact" class="nav-cta">Contact</a>
+      <button class="nav-burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-mobile-menu">
+  <a href="#" class="nav-mobile-link">Home</a>
+  <a href="#" class="nav-mobile-link">About</a>
+  <a href="#" class="nav-mobile-link">Careers</a>
+  <a href="#" class="nav-mobile-link">News</a>
+  <a href="#contact" class="nav-mobile-link">Contact</a>
+</div>
+
+
+<!-- ── SECTION 1 — HERO ─────────────────────────────────────────────────── -->
+<section class="hero section" aria-label="Hero">
+  <div class="hero-bg-placeholder" aria-hidden="true"></div>
+
+  <div class="container hero-content">
+    <h1 class="h1-hero hero-headline">
+      Maneuverability when you need it. On demand.
+    </h1>
+
+    <div class="hero-bottom-row">
+      <!-- Learn more -->
+      <a href="#intro" class="hero-learn-more">
+        Learn more
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M11 1L6 6.5L1 1" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+
+      <!-- News card — dark overlay sweeps up on hover -->
+      <a href="#" class="hero-news-card" aria-label="Latest news">
+        <div class="hero-news-card-overlay" aria-hidden="true"></div>
+        <div class="hero-news-card-body">
+          <p class="hero-news-label">Latest</p>
+          <p class="hero-news-text">Washington State Invests $350,000 in Portal Space Systems Through Strategic Reserve Fund to Accelerate Manufacturing in Bothell</p>
+          <span class="hero-news-read">Read more</span>
+        </div>
+        <!-- Thumbnail placeholder — swap for <img> when ready -->
+        <div class="hero-news-thumb" aria-hidden="true"></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECTION 2 — WORD REVEAL + SUPERNOVA ──────────────────────────────── -->
+<!--
+  Structure:
+  • .intro-section       = 500vh scroll distance
+  • .intro-sticky        = sticky 100vh — shows the word reveal text
+  • .intro-overlay-outer = absolute, sits at bottom of section
+    └ .intro-overlay     = sticky 100vh — the full-vh panel that sweeps up
+      └ .intro-overlay-inner  = the panel itself (clip-path driven by GSAP)
+        ├ .intro-image-block  = upper image area — fills space above text
+        └ .intro-text-block   = "Supernova is our answer" + specs
+-->
+<section class="section intro-section" id="intro" aria-label="Introduction">
+
+  <!-- Word reveal — stays stuck while words light up -->
+  <div class="intro-sticky">
+    <div class="intro-words">
+      <h2 class="h1"><span class="word">Space</span> <span class="word">has</span> <span class="word">changed,</span> <span class="word">but</span> <span class="word">spacecraft</span> <span class="word">haven't.</span> <span class="word">Static</span> <span class="word">vehicles</span> <span class="word">can't</span> <span class="word">meet</span> <span class="word">the</span> <span class="word">demands</span> <span class="word">of</span> <span class="word">a</span> <span class="word">dynamic</span> <span class="word">environment.</span> <span class="word">Chemical</span> <span class="word">propulsion</span> <span class="word">can't</span> <span class="word">sustain</span> <span class="word">maneuver,</span> <span class="word">electric</span> <span class="word">propulsion</span> <span class="word">doesn't</span> <span class="word">have</span> <span class="word">the</span> <span class="word">speed.</span> <span class="word">We</span> <span class="word">need</span> <span class="word">a</span> <span class="word">better</span> <span class="word">spacecraft</span> <span class="word">for</span> <span class="word">this</span> <span class="word">modern</span> <span class="word">domain.</span></h2>
+    </div>
+  </div>
+
+  <!-- Supernova overlay — sweeps up from below, full 100vh -->
+  <div class="intro-overlay-outer">
+    <div class="intro-overlay">
+      <!-- clip-path is driven by GSAP from inset(100% 0 0 0) → inset(0% 0 0 0) -->
+      <div class="intro-overlay-inner">
+        <!-- Image block: fills all space above the text -->
+        <div class="intro-image-block" aria-label="Supernova spacecraft visual placeholder">
+          <!-- swap for <img> or <video> when media is ready -->
+        </div>
+        <!-- Text block: anchored to bottom of the 100vh panel -->
+        <div class="intro-text-block">
+          <div class="container">
+            <h2 class="h1 mb-4">Supernova is our answer</h2>
+            <p class="p-l mb-4" style="max-width:42ch; color:var(--black-3);">
+              A maneuverable, solar-thermal spacecraft engineered for persistent delta-v, on-demand autonomy, and real-time control.
+            </p>
+            <div class="intro-specs-grid">
+              <div class="intro-spec-item">
+                <p class="h4">6 km/s</p>
+                <p class="p-s" style="color:var(--black-3)">delta-v</p>
+              </div>
+              <div class="intro-spec-item">
+                <p class="h4">On-Standby</p>
+                <p class="p-s" style="color:var(--black-3)">taskable in minutes</p>
+              </div>
+              <div class="intro-spec-item">
+                <p class="h4">&lt;24h</p>
+                <p class="p-s" style="color:var(--black-3)">payload swap</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ── SECTION 3 — MISSION CARDS ────────────────────────────────────────── -->
+<section class="section mission-section" aria-label="Mission applications">
+  <div class="mission-inner">
+    <div class="mission-left">
+      <div class="mission-words mb-4">
+        <h2 class="h1"><span class="word">Trans-orbital</span> <span class="word">freedom.</span><br><span class="word">Mission-ready</span> <span class="word">capability.</span></h2>
+      </div>
+      <p class="p-m">Supernova delivers sustained maneuverability across orbits, from LEO to Cislunar space and back, with a multi-year life for persistent responsiveness.</p>
+    </div>
+    <div class="mission-cards">
+      <article class="mission-card">
+        <div class="mission-card-bg" aria-hidden="true"></div>
+        <div class="mission-card-content">
+          <h3 class="h3">For National Security</h3>
+          <p class="p-m">Respond fast. Shadow threats. Extend reach across orbital regimes.</p>
+          <ul class="mission-card-bullets">
+            <li class="mission-card-bullet">Cislunar logistics &amp; tactical mobility</li>
+            <li class="mission-card-bullet">Rapid-response capabilities</li>
+            <li class="mission-card-bullet">Space Domain Awareness (SDA)</li>
+          </ul>
+        </div>
+      </article>
+      <article class="mission-card">
+        <div class="mission-card-bg" aria-hidden="true"></div>
+        <div class="mission-card-content">
+          <h3 class="h3">For Science &amp; Exploration</h3>
+          <p class="p-m">Deliver payloads. Hit tighter timelines. Push deeper into space.</p>
+          <ul class="mission-card-bullets">
+            <li class="mission-card-bullet">Low-cost lunar insertion</li>
+            <li class="mission-card-bullet">Experimental platform delivery</li>
+            <li class="mission-card-bullet">Orbital repositioning for extended mission life</li>
+          </ul>
+        </div>
+      </article>
+      <article class="mission-card">
+        <div class="mission-card-bg" aria-hidden="true"></div>
+        <div class="mission-card-content">
+          <h3 class="h3">For Commercial Operators</h3>
+          <p class="p-m">Fix what's failing. Service what matters. Move with purpose.</p>
+          <ul class="mission-card-bullets">
+            <li class="mission-card-bullet">Constellation maintenance</li>
+            <li class="mission-card-bullet">Life extension &amp; servicing</li>
+            <li class="mission-card-bullet">Debris mitigation with precision maneuvering</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECTION 4 — STP SCROLL-STICKY ────────────────────────────────────── -->
+<!--
+  Structure: section is 400vh. Inner sticky wrapper is 100vh.
+  Left col: tab accordion — one opens at a time, scroll-driven.
+  Right col: stacked panels, each sweeps up via clip-path (same as Supernova reveal).
+-->
+<section class="section stp-section" aria-label="Solar Thermal Propulsion">
+  <div class="stp-sticky-wrapper">
+
+    <!-- LEFT — tab list -->
+    <div class="stp-left">
+      <div class="stp-header">
+        <h2 class="h1" style="color:#fff; margin-bottom: var(--sp-7);">Solar Thermal Propulsion (STP)</h2>
+      </div>
+      <div class="stp-tabs" role="tablist">
+
+        <div class="stp-tab-item is--active" role="tab">
+          <h3 class="h4">Concentrate Solar Energy</h3>
+          <div class="stp-tab-body">
+            <p class="p-m">Deployable and re-stowable mirror concentrators are activated to focus sunlight onto a compact receiver, generating thermal energy comparable to a compact nuclear reactor.</p>
+          </div>
+        </div>
+
+        <div class="stp-tab-item" role="tab">
+          <h3 class="h4">Heat the Thermal Battery and HEX Thruster</h3>
+          <div class="stp-tab-body">
+            <p class="p-m">The concentrated solar energy heats a thermal battery which envelops our proprietary HEX Thruster — a 3D-printed system that combines the heat exchanger and nozzle into a single component with no internal interfaces or moving parts.</p>
+          </div>
+        </div>
+
+        <div class="stp-tab-item" role="tab">
+          <h3 class="h4">Thrust and Maneuver</h3>
+          <div class="stp-tab-body">
+            <p class="p-m">A safe and storable monopropellant is pushed through the HEX Thruster. As it passes through, it rapidly absorbs the stored heat, expands, and is exhausted at high velocity — delivering up to 6 km/s of delta-v across orbits.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT — stacked panels, clip-path reveals -->
+    <div class="stp-right">
+      <div class="stp-panel" style="clip-path:inset(0% 0 0 0);">
+        <div class="stp-panel-ph" style="background:#0f1520;">
+          <span>[PANEL 1 — Concentrate Solar Energy]</span>
+        </div>
+      </div>
+      <div class="stp-panel" style="clip-path:inset(100% 0 0 0);">
+        <div class="stp-panel-ph" style="background:#150f20;">
+          <span>[PANEL 2 — Thermal Battery &amp; HEX Thruster]</span>
+        </div>
+      </div>
+      <div class="stp-panel" style="clip-path:inset(100% 0 0 0);">
+        <div class="stp-panel-ph" style="background:#0f2015;">
+          <span>[PANEL 3 — Thrust &amp; Maneuver]</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── SECTION 5 — CAPABILITIES ─────────────────────────────────────────── -->
+<section class="section capabilities-section" aria-label="Supernova capabilities">
+  <div class="capabilities-inner">
+    <div class="capabilities-header anim-fade-up">
+      <h2 class="h1">Hyper-flexible.<br>Mission-adaptable. Payload-ready.</h2>
+      <p class="p-m" style="margin-top:var(--sp-3);max-width:36ch;">
+        Supernova does more than move — it enables. No matter the payload, it delivers the maneuverability to take it further.
+      </p>
+    </div>
+    <div class="capabilities-layout">
+      <div class="tab-list-white" role="tablist">
+        <div class="tab-item-white is--active" role="tab">
+          <h3 class="h4">Position and Persist</h3>
+          <div class="tab-body">
+            <ul class="description-list">
+              <li>Autonomous station-keeping and on-orbit taskability</li>
+              <li>Rapid repositioning across LEO, GEO, MEO, and Cislunar</li>
+              <li>Tactical repositioning in mins or hours, not weeks</li>
+              <li>Tactical GEO belt adjustments</li>
+              <li>Persistent presence in high-value orbital corridors</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tab-item-white" role="tab">
+          <h3 class="h4">Rendezvous and Service</h3>
+          <div class="tab-body">
+            <ul class="description-list">
+              <li>Proximity operations and inspections</li>
+              <li>Dynamic threat monitoring or anomaly response</li>
+              <li>Event-driven retasking and precision orbital path control</li>
+              <li>ISR support missions (non-kinetic)</li>
+              <li>Support for coalition comms or sensing packages</li>
+              <li>Multi-mission cycles from a single vehicle</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tab-item-white" role="tab">
+          <h3 class="h4">Deliver and Deploy</h3>
+          <div class="tab-body">
+            <ul class="description-list">
+              <li>Point-to-point payload transport and deployment</li>
+              <li>On-demand delivery to new orbital regimes</li>
+              <li>Software-defined payload swaps, flexibility up to hours before launch</li>
+              <li>Post-deployment repositioning for follow-on support</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="cap-video-ph" aria-label="Capability video placeholder">[VIDEO PLACEHOLDER]</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECTION 6 — TEAM & ROADMAP ────────────────────────────────────────── -->
+<section class="section team-section" aria-label="Team and roadmap">
+  <div class="team-inner">
+    <div class="team-intro">
+      <p class="p-l">Built by the leadership behind the systems that defined modern aerospace: from Raptor engines at SpaceX, to Blue Origin's heavy-lift propulsion, Kuiper's mega-constellation, and NATO's strategic space capabilities. Now engineering the future of orbital maneuverability.</p>
+    </div>
+    <div class="facility-stat">
+      <p class="p-m">Operating an 8,000 sq ft R&amp;D site in Washington, enabling systematic component testing, engine hot-firing, and performance validation.</p>
+    </div>
+    <div class="roadmap">
+      <div class="roadmap-item">
+        <div class="roadmap-dot"></div>
+        <p class="roadmap-date">Q4 '25</p>
+        <p class="roadmap-title">Full-Scale STP® Validation</p>
+        <p class="roadmap-desc">Full-Scale STP® System Validation — Critical Hot-Fire Test Completion</p>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot"></div>
+        <p class="roadmap-date">Q2 '26</p>
+        <p class="roadmap-title">Launch</p>
+        <p class="roadmap-desc">De-risking launch of multiple critical Supernova systems on Momentus' Vigoride 7</p>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot"></div>
+        <p class="roadmap-date">Q4 '26</p>
+        <p class="roadmap-title">Launch</p>
+        <p class="roadmap-desc">First free-flying on-orbit demonstration</p>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot"></div>
+        <p class="roadmap-date">2027</p>
+        <p class="roadmap-title">Scale-Up</p>
+        <p class="roadmap-desc">Commence production capabilities for 12 Supernova per year</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECTION 7 — CTA ───────────────────────────────────────────────────── -->
+<section class="section cta-section" id="contact" aria-label="Contact">
+  <div class="cta-bg-placeholder" aria-hidden="true"></div>
+  <div class="cta-inner">
+    <h2 class="h1">Supernova doesn't just reach orbit — it rewrites what's possible once you're there.</h2>
+    <p class="p-l mb-5" style="color:rgba(255,255,255,0.6);max-width:36ch;">Let's talk about how Supernova can move your mission.</p>
+    <a href="mailto:info@portalsystems.space" class="cta-button">Talk to us</a>
+  </div>
+</section>
+
+
+<!-- ── SECTION 8 — NEWS ──────────────────────────────────────────────────── -->
+<section class="section news-section" aria-label="News">
+  <div class="news-inner">
+    <div class="news-header">
+      <h2 class="h3">Portal in the News</h2>
+      <a href="#" class="arrow-link is--black">All news</a>
+    </div>
+    <div class="news-cards">
+      <article class="news-card">
+        <p class="news-card-date">Dec 10, 2025</p>
+        <h3 class="news-card-title">Washington State Invests $350,000 in Portal Space Systems Through Strategic Reserve Fund to Accelerate Manufacturing in Bothell</h3>
+        <a href="#" class="news-card-link">Read more</a>
+      </article>
+      <article class="news-card">
+        <p class="news-card-date">Nov 5, 2025</p>
+        <h3 class="news-card-title">Portal unveils Starburst, an ESPA-class rapid-maneuverability spacecraft, and announces Starburst-1 mission on SpaceX in Q4 2026</h3>
+        <a href="#" class="news-card-link">Read more</a>
+      </article>
+      <article class="news-card">
+        <p class="news-card-date">Sep 30, 2025</p>
+        <h3 class="news-card-title">Portal Becomes First Commercial Company to Successfully Test Solar Thermal Propulsion System for Multi-Orbit Spacecraft</h3>
+        <a href="#" class="news-card-link">Read more</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECTION 9 — CAREERS ───────────────────────────────────────────────── -->
+<section class="section careers-section" aria-label="Careers">
+  <div class="careers-inner">
+    <div class="careers-header">
+      <h2 class="h3">Join the team</h2>
+      <a href="#" class="arrow-link is--black">See all jobs</a>
+    </div>
+    <ul class="careers-list">
+      <li class="career-item">
+        <span class="career-title">Propulsion Systems Build Engineer</span>
+        <span class="career-dept">Engineering</span>
+        <span class="career-loc">Bothell, WA</span>
+        <span class="career-type">Full-time</span>
+      </li>
+      <li class="career-item">
+        <span class="career-title">Senior Thermal Analysis Engineer</span>
+        <span class="career-dept">Engineering</span>
+        <span class="career-loc">Bothell, WA</span>
+        <span class="career-type">Full-time</span>
+      </li>
+      <li class="career-item">
+        <span class="career-title">Software Integration Lead</span>
+        <span class="career-dept">Engineering</span>
+        <span class="career-loc">Bothell, WA</span>
+        <span class="career-type">Full-time</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ── FOOTER ────────────────────────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <a href="/" class="footer-logo" aria-label="Portal Space Systems">
+      <svg viewBox="0 0 154 26" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+        <defs><style>.ft0{fill-rule:evenodd}.ft0,.ft1{fill:currentColor}</style></defs>
+        <path class="ft0" d="M5.4,3.4c1.8,0,3.7,0,5.5.2,1,.1,2.1.5,3,.9,1.5.7,2.4,2,2.7,3.6.5,2.1.4,4.2-.6,6.2-.7,1.2-1.7,1.9-3,2.4-1.3.5-2.7.6-4.1.7-1.5,0-3.1,0-4.6,0-.5,0-.6.1-.6.6,0,1.7,0,3.4,0,5.1,0,.4-.1.5-.5.5-.9,0-1.8,0-2.8,0-.4,0-.5,0-.5-.5,0-2.8,0-5.6,0-8.4,0-.4.1-.5.5-.5,2.6,0,5.2,0,7.8,0,.6,0,1.2,0,1.8-.1,2.4-.4,3.3-1.9,3-4.2-.2-2-1.5-2.8-3.5-3-.8,0-1.6,0-2.4,0-2.2,0-4.4,0-6.6,0-.4,0-.5,0-.5-.5C0,5.4,0,4.7,0,3.9c0-.4,0-.5.5-.5,1.6,0,3.2,0,4.8,0Z"/>
+        <path class="ft1" d="M50.2,16.2c-.7,2.2-1.9,4.1-3.6,5.6-1.4,1.2-2.9,2-4.6,2.5-1.8.5-3.7.6-5.6.2-2.6-.5-4.8-1.7-6.5-3.8-3.3-3.8-3-9.7.7-13.1,2.1-2,4.6-2.9,7.5-2.7,4,.4,7,3.6,6.7,7.6-.2,2.7-2.5,4.9-5.1,4.9-.1,0-.3,0-.4,0,.5-.3,1-.6,1.5-.9,2.4-1.9,2.7-6.3-.6-8.3-3-1.8-6.9-.9-8.9,2.2-2.2,3.5-1.3,7.8,1.9,10.3,2.6,2,5.6,2.4,8.8,1.4,3-1,5.1-2.9,6.4-5.8,1.4-3,1.4-6,.2-9-.7-1.8-1.9-3.3-3.3-4.6-.4-.4-.8-.7-1.2-1,0,0,0,0,0-.1.2,0,.3.2.5.3,2.9,1.8,4.8,4.4,5.5,7.8.5,2.2.5,4.4-.1,6.6ZM29,7.7c2.8-3.5,7.8-5.2,12.1-3.3,3.9,1.7,5.9,6,4.5,9.9-1.3,3.7-5.2,5.6-8.7,4.2-1.9-.8-3.2-2.5-3.3-4.5,0-2.4.9-4.1,3-5,.1,0,.2-.1.3-.2,0,0-1.1,0-1.6,0-2.3.7-3.9,2.8-3.9,5.2,0,3,2.2,5.9,5.1,6.7,2.3.7,4.5.4,6.7-.6,4.4-2.1,6.5-7.6,4.7-12.1-1.1-2.8-3.1-4.7-5.9-5.8-3-1.2-6.1-1.3-9.2,0-4.1,1.8-6.5,4.9-7.2,9.4-.5,3.4.3,6.6,2.3,9.5,1,1.5,2.4,2.6,3.9,3.4-.4-.4-.9-1-1.5-1.5-4.5-4.2-4.8-10.9-1.3-15.5Z"/>
+      </svg>
+    </a>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#" class="footer-link">Home</a>
+      <a href="#" class="footer-link">About</a>
+      <a href="#" class="footer-link">Careers</a>
+      <a href="#" class="footer-link">News</a>
+      <a href="#contact" class="footer-link">Contact</a>
+    </nav>
+    <a href="mailto:info@portalsystems.space" class="footer-contact">info@portalsystems.space</a>
+    <p class="footer-copy">© 2025, Portal Space Systems</p>
+  </div>
+</footer>
+
+
+<!-- ── DEPENDENCIES ──────────────────────────────────────────────────────── -->
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="portal.js"></script>
+</body>
+</html>
