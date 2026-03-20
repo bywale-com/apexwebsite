@@ -7,7 +7,7 @@
 <meta name="description" content="Supernova — a maneuverable, solar-thermal spacecraft engineered for persistent delta-v, on-demand autonomy, and real-time control.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Geist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="portal.css">
 </head>
 <body>
@@ -17,6 +17,7 @@
   <div class="container">
     <div class="nav-content">
       <a href="/" class="nav-logo" aria-label="Web Team Six">
+        <img class="nav-logo-icon" src="./nav-icon.png" alt="" />
         <span class="nav-logo-text">webTeam</span>
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
@@ -42,32 +43,33 @@
 </div>
 
 
-<!-- ── SECTION 1 — HERO ─────────────────────────────────────────────────── -->
+<!-- ── SECTION 1 — HERO (full-bleed illustration + overlaid content) ───── -->
 <section class="hero section" aria-label="Hero">
-  <div class="hero-bg-placeholder" aria-hidden="true"></div>
+  <div class="hero-media" aria-hidden="true">
+    <img
+      class="hero-bg-image"
+      src="./hero-illustration.png"
+      alt=""
+      loading="eager" />
+  </div>
 
   <div class="container hero-content">
-    <h1 class="h1-hero hero-headline">
-      The purpose of a website is not to exist.
-      It’s to move people.
-    </h1>
+    <h1 class="h1-hero hero-headline">Grow your business with a smarter website</h1>
+    <p class="hero-subheading">Dominate organic web traffic and conversion.</p>
 
     <div class="hero-bottom-row">
-      <!-- Learn more -->
       <a href="#intro" class="hero-learn-more">
         Learn more
         <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M11 1L6 6.5L1 1" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
 
-      <!-- News card — dark overlay sweeps up on hover -->
       <a href="#" class="hero-news-card" aria-label="Latest news">
         <div class="hero-news-card-overlay" aria-hidden="true"></div>
         <div class="hero-news-card-body">
           <p class="hero-news-label">Latest</p>
-          <p class="hero-news-text">Washington State Invests $350,000 in Portal Space Systems Through Strategic Reserve Fund to Accelerate Manufacturing in Bothell</p>
+          <p class="hero-news-text">WebTeam ships a measurable conversion system that books more calls</p>
           <span class="hero-news-read">Read more</span>
         </div>
-        <!-- Thumbnail placeholder — swap for <img> when ready -->
         <div class="hero-news-thumb" aria-hidden="true"></div>
       </a>
     </div>
@@ -92,17 +94,9 @@
   <div class="intro-sticky">
     <div class="intro-words">
       <h2 class="h1">
-        <span class="word">Businesses</span> <span class="word">invest</span> <span class="word">in</span> <span class="word">traffic.</span>
-        <span class="word">SEO.</span> <span class="word">Ads.</span> <span class="word">Referrals.</span> <span class="word">Partnerships.</span>
-        <span class="word">But</span> <span class="word">when</span> <span class="word">someone</span> <span class="word">arrives—</span>
-        <span class="word">nothing</span> <span class="word">happens.</span>
-        <span class="word">No</span> <span class="word">guidance.</span>
-        <span class="word">No</span> <span class="word">qualification.</span>
-        <span class="word">No</span> <span class="word">movement.</span>
-        <span class="word">Just</span> <span class="word">pages.</span>
-        <span class="word">And</span> <span class="word">drop-off.</span>
-        <span class="word">The</span> <span class="word">problem</span> <span class="word">isn’t</span> <span class="word">attention.</span>
-        <span class="word">It’s</span> <span class="word">what</span> <span class="word">your</span> <span class="word">website</span> <span class="word">does</span> <span class="word">with</span> <span class="word">it.</span>
+        <span class="word">WebTeam</span> <span class="word">is</span> <span class="word">a</span> <span class="word">collective</span> <span class="word">of</span> <span class="word">engineers</span> <span class="word">focused</span> <span class="word">on</span> <span class="word">one</span> <span class="word">thing:</span><br>
+        <span class="word">making</span> <span class="word">websites</span> <span class="word">perform.</span><br><br>
+        <span class="word">From</span> <span class="word">experience</span> <span class="word">design</span> <span class="word">to</span> <span class="word">conversion</span> <span class="word">systems,</span> <span class="word">everything</span> <span class="word">we</span> <span class="word">build</span> <span class="word">is</span> <span class="word">engineered</span> <span class="word">to</span> <span class="word">move</span> <span class="word">visitors</span> <span class="word">toward</span> <span class="word">action.</span>
       </h2>
     </div>
   </div>
@@ -112,39 +106,39 @@
     <div class="intro-overlay">
       <!-- clip-path is driven by GSAP from inset(100% 0 0 0) → inset(0% 0 0 0) -->
       <div class="intro-overlay-inner">
-        <!-- Image block: fills all space above the text -->
-        <div class="intro-image-block" aria-label="WebOps experience video">
+        <div class="intro-text-block">
+          <div class="container">
+            <h2 class="h1 mb-4">We build sales-engineered websites.</h2>
+            <p class="p-l mb-3" style="max-width:42ch; color:var(--black-3);">Most websites are built to look good.</p>
+            <p class="p-l mb-4" style="max-width:42ch; color:var(--black-5); font-weight:500;">Ours are built to perform.</p>
+            <p class="p-l mb-4" style="max-width:48ch; color:var(--black-3);">Every element—from structure to interaction—is designed to guide visitors, surface intent, and convert attention into action.</p>
+            <div class="intro-specs-grid">
+              <div class="intro-spec-item">
+                <p class="h4">Purpose-built</p>
+                <p class="p-s" style="color:var(--black-3)">Every page earns its place in the path to revenue.</p>
+              </div>
+              <div class="intro-spec-item">
+                <p class="h4">Intent-aware</p>
+                <p class="p-s" style="color:var(--black-3)">Structure and UX surface who’s ready—and what to do next.</p>
+              </div>
+              <div class="intro-spec-item">
+                <p class="h4">Conversion-led</p>
+                <p class="p-s" style="color:var(--black-3)">Measured moves from attention to booked calls and revenue.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-video-block" aria-label="Product demo video">
           <video
-            src="./grok-video-5036ea1f-169d-445c-aa3e-79db46feebcc.mp4"
+            class="intro-demo-video"
+            src="./intro-product-demo.mp4"
             autoplay
             muted
             loop
             playsinline
-            style="width:100%;height:100%;object-fit:cover;display:block;">
-          </video>
-        </div>
-        <!-- Text block: anchored to bottom of the 100vh panel -->
-        <div class="intro-text-block">
-          <div class="container">
-            <h2 class="h1 mb-4">WebOps is our answer</h2>
-            <p class="p-l mb-4" style="max-width:42ch; color:var(--black-3);">
-              A maneuverable, solar-thermal spacecraft engineered for persistent delta-v, on-demand autonomy, and real-time control.
-            </p>
-            <div class="intro-specs-grid">
-              <div class="intro-spec-item">
-                <p class="h4">6 km/s</p>
-                <p class="p-s" style="color:var(--black-3)">delta-v</p>
-              </div>
-              <div class="intro-spec-item">
-                <p class="h4">On-Standby</p>
-                <p class="p-s" style="color:var(--black-3)">taskable in minutes</p>
-              </div>
-              <div class="intro-spec-item">
-                <p class="h4">&lt;24h</p>
-                <p class="p-s" style="color:var(--black-3)">payload swap</p>
-              </div>
-            </div>
-          </div>
+            controls
+            preload="auto"></video>
         </div>
       </div>
     </div>
@@ -165,28 +159,28 @@
     <!-- LEFT — tab list -->
     <div class="stp-left">
       <div class="stp-header">
-        <h2 class="h1" style="color:#fff; margin-bottom: var(--sp-7);">How WebOps actually works</h2>
+        <h2 class="h1" style="color:#fff; margin-bottom: var(--sp-7);">The Formula for Web Profit</h2>
       </div>
       <div class="stp-tabs" role="tablist">
 
         <div class="stp-tab-item is--active" role="tab">
-          <h3 class="h4">1. Engage</h3>
+          <h3 class="h4">1. Measurable</h3>
           <div class="stp-tab-body">
-            <p class="p-m">The moment someone lands, they’re met with clarity: who this is for, what it does, and where to go next. No dead‑end hero. No “figure it out yourself” navigation. Just focused prompts, pathways, and micro‑copy that start the right conversation.</p>
+            <p class="p-m">Every interaction is tracked.<br>You don’t guess what’s working—you know.</p>
           </div>
         </div>
 
         <div class="stp-tab-item" role="tab">
-          <h3 class="h4">2. Understand</h3>
+          <h3 class="h4">2. Memorable</h3>
           <div class="stp-tab-body">
-            <p class="p-m">WebOps watches what visitors do—what they click, hover, read, and ignore. Instead of guessing, the system infers intent from real behavior: researcher vs buyer, curious vs ready, fit vs misfit. That intent shapes what they see next.</p>
+            <p class="p-m">Clear, structured experiences that stick.<br>Not just seen—understood.</p>
           </div>
         </div>
 
         <div class="stp-tab-item" role="tab">
-          <h3 class="h4">3. Move</h3>
+          <h3 class="h4">3. Magnetic</h3>
           <div class="stp-tab-body">
-            <p class="p-m">Every path leads somewhere on purpose. Into a call. Into a scoped inquiry. Into a waitlist. WebOps turns “browse and bounce” into guided movement toward a clear outcome—for them and for you.</p>
+            <p class="p-m">Built to pull visitors forward.<br>Toward action, not away from it.</p>
           </div>
         </div>
 
@@ -197,22 +191,45 @@
     <div class="stp-right">
       <div class="stp-panel" style="clip-path:inset(0% 0 0 0);">
         <div class="stp-panel-ph" style="background:#0f1520;">
-          <span>[PANEL 1 — Concentrate Solar Energy]</span>
+          <video
+            class="stp-panel-video"
+            src="./stp-measurable.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            aria-hidden="true"></video>
         </div>
       </div>
       <div class="stp-panel" style="clip-path:inset(100% 0 0 0);">
         <div class="stp-panel-ph" style="background:#150f20;">
-          <span>[PANEL 2 — Thermal Battery &amp; HEX Thruster]</span>
+          <video
+            class="stp-panel-video"
+            src="./stp-video-2.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            aria-hidden="true"></video>
         </div>
       </div>
       <div class="stp-panel" style="clip-path:inset(100% 0 0 0);">
         <div class="stp-panel-ph" style="background:#0f2015;">
-          <span>[PANEL 3 — Thrust &amp; Maneuver]</span>
+          <video
+            class="stp-panel-video"
+            src="./stp-video-3.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            aria-hidden="true"></video>
         </div>
       </div>
     </div>
 
-  </div>
   </div>
 </section>
 
@@ -222,45 +239,33 @@
   <div class="mission-inner">
     <div class="mission-left">
       <div class="mission-words mb-4">
-        <h2 class="h1">Where WebOps earns its keep</h2>
+        <h2 class="h1">We don’t just build websites. We build the system around them.</h2>
       </div>
-      <p class="p-m">WebOps is built for the moment after the click—when a human is on your site, attention is real, and most websites quietly drop the ball.</p>
+      <p class="p-m">Coverage of the entire funnel—not a menu of disconnected services.</p>
     </div>
     <div class="mission-cards">
       <article class="mission-card">
+        <img class="mission-card-img" src="./mission-14.png" alt="" aria-hidden="true" />
         <div class="mission-card-bg" aria-hidden="true"></div>
         <div class="mission-card-content">
-          <h3 class="h3">For service businesses</h3>
-          <p class="p-m">Turn visitors into qualified conversations instead of random contact form spam.</p>
-          <ul class="mission-card-bullets">
-            <li class="mission-card-bullet">Pre‑qualified inquiries instead of “just checking” messages.</li>
-            <li class="mission-card-bullet">Guided paths for different services, prices, or buyer stages.</li>
-            <li class="mission-card-bullet">Clear next steps so serious prospects know exactly how to move.</li>
-          </ul>
+          <h3 class="h3">Pre-Traffic</h3>
+          <p class="p-m">Search, visibility, and discovery.<br>Making sure the right people arrive.</p>
         </div>
       </article>
       <article class="mission-card">
+        <img class="mission-card-img" src="./mission-15.png" alt="" aria-hidden="true" />
         <div class="mission-card-bg" aria-hidden="true"></div>
         <div class="mission-card-content">
-          <h3 class="h3">For operators &amp; owners</h3>
-          <p class="p-m">Stop guessing who’s interested. Start seeing real buying intent.</p>
-          <ul class="mission-card-bullets">
-            <li class="mission-card-bullet">Signals, not vibes: behavior that shows who’s leaning in.</li>
-            <li class="mission-card-bullet">Fewer blind spots between marketing, sales, and delivery.</li>
-            <li class="mission-card-bullet">Confident decisions on what to scale, kill, or double down on.</li>
-          </ul>
+          <h3 class="h3">Post-Click</h3>
+          <p class="p-m">Experience, interaction, and conversion.<br>What happens when they land.</p>
         </div>
       </article>
       <article class="mission-card">
+        <img class="mission-card-img" src="./mission-16.png" alt="" aria-hidden="true" />
         <div class="mission-card-bg" aria-hidden="true"></div>
         <div class="mission-card-content">
-          <h3 class="h3">For growth &amp; marketing teams</h3>
-          <p class="p-m">Align traffic, messaging, and outcomes—without rebuilding everything from scratch.</p>
-          <ul class="mission-card-bullets">
-            <li class="mission-card-bullet">Post‑click clarity on which campaigns produce real pipeline.</li>
-            <li class="mission-card-bullet">Landing experiences that adapt to source, segment, and promise.</li>
-            <li class="mission-card-bullet">Incremental changes that compound instead of random redesigns.</li>
-          </ul>
+          <h3 class="h3">Post-Conversion</h3>
+          <p class="p-m">CRM, follow-ups, and sequences.<br>Turning interest into revenue.</p>
         </div>
       </article>
     </div>
@@ -328,35 +333,35 @@
 <section class="section team-section" aria-label="Team and roadmap">
   <div class="team-inner">
     <div class="team-intro">
-      <p class="p-l">Designed from the ground up to solve the post-click problem most businesses ignore. Not “how do we get more people to the site?” But: “What actually happens once they’re here?”</p>
+      <p class="p-l">Most businesses focus on getting traffic.<br><br>We focus on what happens after.<br><br>Because that’s where the money is made.</p>
     </div>
     <div class="facility-stat">
-      <p class="p-m">Operating an 8,000 sq ft R&amp;D site in Washington, enabling systematic component testing, engine hot-firing, and performance validation.</p>
+      <p class="p-m">Operating a WebOps studio in Washington, where we stress-test journeys, validate conversion paths, and iterate until visitors take action.</p>
     </div>
     <div class="roadmap">
       <div class="roadmap-item">
         <div class="roadmap-dot"></div>
         <p class="roadmap-date">Q4 '25</p>
-        <p class="roadmap-title">Full-Scale STP® Validation</p>
-        <p class="roadmap-desc">Full-Scale STP® System Validation — Critical Hot-Fire Test Completion</p>
+        <p class="roadmap-title">Post-Click Audit</p>
+        <p class="roadmap-desc">Map what happens after the click, surface the real drop-offs, and deliver a prioritized conversion plan built around booked calls.</p>
       </div>
       <div class="roadmap-item">
         <div class="roadmap-dot"></div>
         <p class="roadmap-date">Q2 '26</p>
-        <p class="roadmap-title">Launch</p>
-        <p class="roadmap-desc">De-risking launch of multiple critical Supernova systems on Momentus' Vigoride 7</p>
+        <p class="roadmap-title">Sales-Engineered Build</p>
+        <p class="roadmap-desc">Design and implement the experiences that guide intent—structure, interaction, copy, and tracking wired for outcomes.</p>
       </div>
       <div class="roadmap-item">
         <div class="roadmap-dot"></div>
         <p class="roadmap-date">Q4 '26</p>
-        <p class="roadmap-title">Launch</p>
-        <p class="roadmap-desc">First free-flying on-orbit demonstration</p>
+        <p class="roadmap-title">Conversion System Launch</p>
+        <p class="roadmap-desc">Deploy your full WebOps system with reporting and experiments—turn attention into action, then action into revenue.</p>
       </div>
       <div class="roadmap-item">
         <div class="roadmap-dot"></div>
         <p class="roadmap-date">2027</p>
-        <p class="roadmap-title">Scale-Up</p>
-        <p class="roadmap-desc">Commence production capabilities for 12 Supernova per year</p>
+        <p class="roadmap-title">Continuous Optimization</p>
+        <p class="roadmap-desc">Scale what works across pages and campaigns, tighten the funnel, and keep improving the performance of every visitor.</p>
       </div>
     </div>
   </div>
@@ -369,7 +374,7 @@
   <div class="cta-inner">
     <h2 class="h1">Your website is already getting attention. The question is—what is it doing with it?</h2>
     <p class="p-l mb-5" style="color:rgba(255,255,255,0.6);max-width:36ch;">Let’s rebuild it properly. Book a WebOps session and we’ll audit what happens after the click, map your own WebOps flow, and show you the highest‑leverage changes to make first.</p>
-    <a href="mailto:info@portalsystems.space" class="cta-button">Start WebOps for your site</a>
+    <a href="mailto:hello@apexintro.com" class="cta-button">Start WebOps for your site</a>
   </div>
 </section>
 
@@ -378,23 +383,23 @@
 <section class="section news-section" aria-label="News">
   <div class="news-inner">
     <div class="news-header">
-      <h2 class="h3">Portal in the News</h2>
+      <h2 class="h3">WebOps in the News</h2>
       <a href="#" class="arrow-link is--black">All news</a>
     </div>
     <div class="news-cards">
       <article class="news-card">
         <p class="news-card-date">Dec 10, 2025</p>
-        <h3 class="news-card-title">Washington State Invests $350,000 in Portal Space Systems Through Strategic Reserve Fund to Accelerate Manufacturing in Bothell</h3>
+        <h3 class="news-card-title">WebTeam ships a measurable conversion system that books more calls</h3>
         <a href="#" class="news-card-link">Read more</a>
       </article>
       <article class="news-card">
         <p class="news-card-date">Nov 5, 2025</p>
-        <h3 class="news-card-title">Portal unveils Starburst, an ESPA-class rapid-maneuverability spacecraft, and announces Starburst-1 mission on SpaceX in Q4 2026</h3>
+        <h3 class="news-card-title">New WebOps testing framework improves intent matching across landing pages</h3>
         <a href="#" class="news-card-link">Read more</a>
       </article>
       <article class="news-card">
         <p class="news-card-date">Sep 30, 2025</p>
-        <h3 class="news-card-title">Portal Becomes First Commercial Company to Successfully Test Solar Thermal Propulsion System for Multi-Orbit Spacecraft</h3>
+        <h3 class="news-card-title">WebOps studio expands performance-first builds for teams ready to grow</h3>
         <a href="#" class="news-card-link">Read more</a>
       </article>
     </div>
@@ -411,20 +416,20 @@
     </div>
     <ul class="careers-list">
       <li class="career-item">
-        <span class="career-title">Propulsion Systems Build Engineer</span>
-        <span class="career-dept">Engineering</span>
+        <span class="career-title">Web Performance Systems Engineer</span>
+        <span class="career-dept">WebOps Engineering</span>
         <span class="career-loc">Bothell, WA</span>
         <span class="career-type">Full-time</span>
       </li>
       <li class="career-item">
-        <span class="career-title">Senior Thermal Analysis Engineer</span>
-        <span class="career-dept">Engineering</span>
+        <span class="career-title">Conversion Testing Analyst</span>
+        <span class="career-dept">WebOps Engineering</span>
         <span class="career-loc">Bothell, WA</span>
         <span class="career-type">Full-time</span>
       </li>
       <li class="career-item">
-        <span class="career-title">Software Integration Lead</span>
-        <span class="career-dept">Engineering</span>
+        <span class="career-title">WebOps Experience Architect</span>
+        <span class="career-dept">WebOps Engineering</span>
         <span class="career-loc">Bothell, WA</span>
         <span class="career-type">Full-time</span>
       </li>
@@ -437,7 +442,8 @@
 <footer class="footer" role="contentinfo">
   <div class="footer-inner">
     <a href="/" class="footer-logo" aria-label="Web Team Six">
-      <img src="./web team six logo.png" alt="Web Team Six" style="display:block; height:24px; width:auto;" />
+      <img class="nav-logo-icon" src="./nav-icon.png" alt="" />
+      <span class="nav-logo-text">webTeam</span>
     </a>
     <nav class="footer-links" aria-label="Footer navigation">
       <a href="#" class="footer-link">Home</a>
@@ -446,8 +452,8 @@
       <a href="#" class="footer-link">News</a>
       <a href="#contact" class="footer-link">Contact</a>
     </nav>
-    <a href="mailto:info@portalsystems.space" class="footer-contact">info@portalsystems.space</a>
-    <p class="footer-copy">© 2025, Portal Space Systems</p>
+    <a href="mailto:hello@apexintro.com" class="footer-contact">hello@apexintro.com</a>
+    <p class="footer-copy">© 2025, Web Team Six</p>
   </div>
 </footer>
 
