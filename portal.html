@@ -47,7 +47,7 @@
 
 
 <!-- ── SECTION 1 — HERO (full-bleed illustration + overlaid content) ───── -->
-<section class="hero section" aria-label="Hero">
+<section class="hero section" aria-label="Hero" data-agent="hero">
   <div class="hero-media" aria-hidden="true">
     <img
       class="hero-bg-image"
@@ -91,7 +91,7 @@
         ├ .intro-image-block  = upper image area — fills space above text
         └ .intro-text-block   = "Supernova is our answer" + specs
 -->
-<section class="section intro-section" id="intro" aria-label="Introduction">
+<section class="section intro-section" id="intro" aria-label="Introduction" data-agent="intro">
 
   <!-- Word reveal — stays stuck while words light up -->
   <div class="intro-sticky">
@@ -156,7 +156,7 @@
   Left col: tab accordion — one opens at a time, scroll-driven.
   Right col: stacked panels, each sweeps up via clip-path (same as Supernova reveal).
 -->
-<section class="section stp-section" aria-label="Solar Thermal Propulsion">
+<section class="section stp-section" aria-label="The Formula for Web Profit" data-agent="how-it-works">
   <div class="stp-sticky-wrapper">
 
     <!-- LEFT — tab list -->
@@ -372,7 +372,7 @@
 
 
 <!-- ── SECTION 7 — CTA ───────────────────────────────────────────────────── -->
-<section class="section cta-section" id="contact" aria-label="Contact">
+<section class="section cta-section" id="contact" aria-label="Contact" data-agent="contact-cta">
   <div class="cta-bg-placeholder" aria-hidden="true"></div>
   <div class="cta-inner">
     <h2 class="h1">Your website is already getting attention. The question is—what is it doing with it?</h2>
@@ -461,10 +461,59 @@
 </footer>
 
 
+<!-- AGENT SHELL -->
+<div id="agent-bubble" class="agent-bubble" role="button" tabindex="0" aria-label="Open conversation, 1 unread">
+  <div class="agent-bubble-surface">
+    <video
+      class="agent-bubble-video"
+      src="./grok-video-dba8a818-4ac7-4bcb-9f8c-23092930dd3b.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-hidden="true"></video>
+    <div class="agent-bubble-pulse" aria-hidden="true"></div>
+  </div>
+  <span class="agent-bubble-badge" aria-hidden="true">1</span>
+</div>
+
+<div id="agent-panel" class="agent-panel" role="dialog" aria-modal="true" aria-label="WebTeam conversation">
+  <video
+    class="agent-panel-video"
+    src="./grok-video-dba8a818-4ac7-4bcb-9f8c-23092930dd3b.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    aria-hidden="true"></video>
+  <div class="agent-panel-scrim" aria-hidden="true"></div>
+  <button type="button" id="agent-close" class="agent-close" aria-label="Close">×</button>
+  <div id="agent-feed" class="agent-feed">
+    <!-- messages render here -->
+  </div>
+  <div class="agent-input-row">
+    <input id="agent-input" type="text" placeholder="Type something..." autocomplete="off" />
+    <button type="button" id="agent-send" class="agent-send-btn" aria-label="Send message">
+      <!-- mic icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+        <line x1="12" y1="19" x2="12" y2="23"/>
+        <line x1="8" y1="23" x2="16" y2="23"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+
 <!-- ── DEPENDENCIES ──────────────────────────────────────────────────────── -->
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="portal.js"></script>
+<!-- agent — always last -->
+<script src="agent.js"></script>
 </body>
 </html>
