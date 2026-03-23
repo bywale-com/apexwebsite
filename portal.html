@@ -462,20 +462,26 @@
 
 
 <!-- AGENT SHELL -->
-<div id="agent-bubble" class="agent-bubble" role="button" tabindex="0" aria-label="Open conversation, 1 unread">
-  <div class="agent-bubble-surface">
-    <video
-      class="agent-bubble-video"
-      src="./grok-video-dba8a818-4ac7-4bcb-9f8c-23092930dd3b.mp4"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-      aria-hidden="true"></video>
-    <div class="agent-bubble-pulse" aria-hidden="true"></div>
+<div id="agent-bubble" class="agent-bubble" role="button" tabindex="0" aria-label="Open conversation">
+  <div class="agent-bubble-teaser" id="agent-bubble-teaser" aria-hidden="true">
+    <span class="agent-bubble-teaser-inner">
+      <span class="agent-type-text agent-bubble-teaser-text" id="agent-bubble-teaser-text"></span><span class="agent-type-cursor agent-bubble-teaser-cursor" id="agent-bubble-teaser-cursor" aria-hidden="true"></span>
+    </span>
   </div>
-  <span class="agent-bubble-badge" aria-hidden="true">1</span>
+  <div class="agent-bubble-orbit">
+    <div class="agent-bubble-surface">
+      <video
+        class="agent-bubble-video"
+        src="./grok-video-dba8a818-4ac7-4bcb-9f8c-23092930dd3b.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"></video>
+      <div class="agent-bubble-pulse" aria-hidden="true"></div>
+    </div>
+  </div>
 </div>
 
 <div id="agent-panel" class="agent-panel" role="dialog" aria-modal="true" aria-label="WebTeam conversation">

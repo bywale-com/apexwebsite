@@ -579,21 +579,58 @@ h1, h2, h3, h4, h5, h6 { font-family:"Helvetica Neue", Helvetica, Arial, sans-se
   bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
+  max-width: min(calc(100vw - 48px), 320px);
   overflow: visible;
   background: transparent;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
   cursor: pointer;
   z-index: 9999;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   transition: opacity 0.3s ease;
 }
 
-/* Clips video + pulse to circle; badge sits outside on the rim */
+.agent-bubble-orbit {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+}
+
+/* Teaser line — typed before open; compact type scale */
+.agent-bubble-teaser {
+  flex: 1;
+  min-width: 0;
+  max-width: 200px;
+  padding: 8px 11px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.94);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.1);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-align: left;
+  pointer-events: none;
+}
+
+.agent-bubble-teaser-inner {
+  display: inline;
+}
+
+.agent-bubble-teaser .agent-type-cursor {
+  width: 1.5px;
+  height: 0.95em;
+  margin-left: 0.5px;
+  animation: agentCursorBlink 0.75s step-end infinite;
+}
+
+/* Clips video + pulse to circle */
 .agent-bubble-surface {
   position: absolute;
   inset: 0;
@@ -627,31 +664,6 @@ h1, h2, h3, h4, h5, h6 { font-family:"Helvetica Neue", Helvetica, Arial, sans-se
   background: rgba(255,255,255,0.35);
   z-index: 1;
   animation: bubblePulse 2.2s ease-out infinite;
-}
-
-/* Perpetual notification dot — top-right on bubble circumference */
-.agent-bubble-badge {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 3;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-  box-sizing: border-box;
-  border-radius: 999px;
-  background: #e53935;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 18px;
-  text-align: center;
-  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
-  letter-spacing: -0.02em;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.28);
-  border: 2px solid #fff;
-  transform: translate(22%, -22%);
-  pointer-events: none;
 }
 
 @keyframes bubblePulse {
@@ -782,6 +794,45 @@ h1, h2, h3, h4, h5, h6 { font-family:"Helvetica Neue", Helvetica, Arial, sans-se
   background: #1a1a1a;
   color: #fff;
   border-bottom-right-radius: 4px;
+}
+
+/* Agent message while “typing” — click to reveal full text */
+.agent-message.is--agent.is--typing-live {
+  cursor: pointer;
+  user-select: none;
+}
+
+.agent-message.is--agent.is--typing-live::after {
+  content: 'Tap to show all';
+  display: block;
+  margin-top: 6px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(0,0,0,0.38);
+  letter-spacing: 0.02em;
+}
+
+.agent-type-wrap {
+  display: inline;
+}
+
+.agent-type-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 1px;
+  background: currentColor;
+  vertical-align: text-bottom;
+  opacity: 0.75;
+  animation: agentCursorBlink 0.9s step-end infinite;
+}
+
+@keyframes agentCursorBlink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-type-cursor { animation: none; opacity: 0.55; }
 }
 
 .agent-input-row {

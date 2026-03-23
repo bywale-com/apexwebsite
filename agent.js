@@ -246,6 +246,339 @@ Return ONLY valid JSON. No markdown. No backticks. No extra text.
     feed.scrollTop = feed.scrollHeight;
   }
 
+  // ── Agent typing animation (semantic lead-in → backspace → final word) ──
+
+  const prefersReducedMotion = () =>
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /** Word in reply → plausible first thoughts; shown briefly then replaced */
+  const SEMANTIC_SUB_RULES = [
+    { pattern: 'conversion', alternatives: ['sales', 'signups', 'bookings'] },
+    { pattern: 'traffic', alternatives: ['visitors', 'clicks', 'sessions'] },
+    { pattern: 'leads', alternatives: ['inquiries', 'calls', 'intake'] },
+    { pattern: 'organic', alternatives: ['search', 'unpaid', 'earned'] },
+    { pattern: 'demo', alternatives: ['walkthrough', 'look', 'run-through'] },
+    { pattern: 'revenue', alternatives: ['sales', 'margin', 'pipeline'] },
+    { pattern: 'measurable', alternatives: ['real', 'clear', 'concrete'] },
+  ];
+
+  function wordBoundaryRegex(word) {
+    return new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+  }
+
+  function randomChoice(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  /** Match alternative casing to how the model wrote the final word */
+  function matchCaseOf(model, original) {
+    if (!original || !model) return model;
+    if (original === original.toUpperCase() && original !== original.toLowerCase()) {
+      return model.toUpperCase();
+    }
+    if (original[0] === original[0].toUpperCase()) {
+      return model[0].toUpperCase() + model.slice(1).toLowerCase();
+    }
+    return model.toLowerCase();
+  }
+
+  /** Non-overlapping matches, earliest-first */
+  function collectSubstitutionSpots(text) {
+    const raw = [];
+    for (const rule of SEMANTIC_SUB_RULES) {
+      const re = wordBoundaryRegex(rule.pattern);
+      let m;
+      while ((m = re.exec(text)) !== null) {
+        raw.push({
+          start: m.index,
+          end: m.index + m[0].length,
+          finalRaw: m[0],
+          alternatives: rule.alternatives,
+        });
+      }
+    }
+    raw.sort((a, b) => a.start - b.start);
+    const out = [];
+    let lastEnd = -1;
+    for (const x of raw) {
+      if (x.start < lastEnd) continue;
+      out.push(x);
+      lastEnd = x.end;
+    }
+    return out;
+  }
+
+  function pickSpotsForMessage(spots, fullText) {
+    const maxSubs = fullText.length > 130 ? 2 : 1;
+    if (spots.length === 0) return [];
+    const shuffled = [...spots].sort(() => Math.random() - 0.5);
+    const chosen = [];
+    for (const s of shuffled) {
+      if (chosen.some((c) => !(s.end <= c.start || s.start >= c.end))) continue;
+      chosen.push(s);
+      if (chosen.length >= maxSubs) break;
+    }
+    return chosen.sort((a, b) => a.start - b.start);
+  }
+
+  function buildTypingSegments(fullText, options = {}) {
+    const allowSemanticSubs = options.allowSemanticSubs !== false;
+    if (!allowSemanticSubs) {
+      return [{ type: 'plain', text: fullText }];
+    }
+    const candidates = collectSubstitutionSpots(fullText);
+    const spots = pickSpotsForMessage(candidates, fullText);
+    /* Not every message needs a “rethink” — keeps it subtle */
+    if (spots.length === 0 || Math.random() > 0.62) {
+      return [{ type: 'plain', text: fullText }];
+    }
+    const segments = [];
+    let pos = 0;
+    for (const s of spots) {
+      if (s.start > pos) {
+        segments.push({ type: 'plain', text: fullText.slice(pos, s.start) });
+      }
+      const alt = randomChoice(s.alternatives);
+      segments.push({
+        type: 'sub',
+        leadIn: matchCaseOf(alt, s.finalRaw),
+        final: s.finalRaw,
+      });
+      pos = s.end;
+    }
+    if (pos < fullText.length) {
+      segments.push({ type: 'plain', text: fullText.slice(pos) });
+    }
+    return segments;
+  }
+
+  function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  function randInt(min, max) {
+    return min + Math.floor(Math.random() * (max - min + 1));
+  }
+
+  const TIMINGS_PANEL = {
+    minC: 9,
+    maxC: 24,
+    minB: 6,
+    maxB: 14,
+    pauseBeforeBackspace: [160, 280],
+    pauseAfterBackspace: [55, 115],
+  };
+
+  const TIMINGS_BUBBLE = {
+    minC: 6,
+    maxC: 16,
+    minB: 4,
+    maxB: 10,
+    pauseBeforeBackspace: [100, 180],
+    pauseAfterBackspace: [40, 85],
+  };
+
+  async function runTypingAnimation(textSpan, cursorEl, segments, fullText, opts) {
+    const { cancelled, scrollFeed } = opts;
+    const t = { ...TIMINGS_PANEL, ...opts.timings };
+
+    const abort = () => cancelled() || !textSpan.isConnected;
+
+    for (const seg of segments) {
+      if (abort()) return;
+      if (seg.type === 'plain') {
+        for (let i = 0; i < seg.text.length; i++) {
+          if (abort()) return;
+          textSpan.textContent += seg.text[i];
+          scrollFeed();
+          await delay(randInt(t.minC, t.maxC));
+        }
+        continue;
+      }
+      if (seg.type === 'sub') {
+        const { leadIn, final: finalWord } = seg;
+        for (let i = 0; i < leadIn.length; i++) {
+          if (abort()) return;
+          textSpan.textContent += leadIn[i];
+          scrollFeed();
+          await delay(randInt(t.minC, t.maxC));
+        }
+        if (abort()) return;
+        await delay(randInt(t.pauseBeforeBackspace[0], t.pauseBeforeBackspace[1]));
+        if (abort()) return;
+        let cur = textSpan.textContent;
+        for (let d = 0; d < leadIn.length; d++) {
+          if (abort()) return;
+          cur = cur.slice(0, -1);
+          textSpan.textContent = cur;
+          scrollFeed();
+          await delay(randInt(t.minB, t.maxB));
+        }
+        if (abort()) return;
+        await delay(randInt(t.pauseAfterBackspace[0], t.pauseAfterBackspace[1]));
+        if (abort()) return;
+        for (let i = 0; i < finalWord.length; i++) {
+          if (abort()) return;
+          textSpan.textContent += finalWord[i];
+          scrollFeed();
+          await delay(randInt(t.minC, t.maxC));
+        }
+      }
+    }
+
+    if (cursorEl && cursorEl.isConnected) cursorEl.remove();
+  }
+
+  function renderAgentMessage(fullText) {
+    const text = String(fullText ?? '');
+    const skipAnim =
+      prefersReducedMotion() ||
+      text.length < 14 ||
+      text.startsWith('Connection issue') ||
+      text.startsWith('Something went wrong');
+
+    if (skipAnim) {
+      renderMessage(text, 'agent');
+      return;
+    }
+
+    const msg = document.createElement('div');
+    msg.className = 'agent-message is--agent is--typing-live';
+    msg.setAttribute('aria-busy', 'true');
+
+    const wrap = document.createElement('span');
+    wrap.className = 'agent-type-wrap';
+    const textSpan = document.createElement('span');
+    textSpan.className = 'agent-type-text';
+    const cursor = document.createElement('span');
+    cursor.className = 'agent-type-cursor';
+    cursor.setAttribute('aria-hidden', 'true');
+    wrap.appendChild(textSpan);
+    wrap.appendChild(cursor);
+    msg.appendChild(wrap);
+    feed.appendChild(msg);
+    feed.scrollTop = feed.scrollHeight;
+
+    const segments = buildTypingSegments(text, { allowSemanticSubs: true });
+    let skipped = false;
+    const cancelled = () => skipped;
+
+    const finish = () => {
+      msg.classList.remove('is--typing-live');
+      msg.removeAttribute('aria-busy');
+      msg.onclick = null;
+      if (cursor.isConnected) cursor.remove();
+      msg.textContent = text;
+    };
+
+    const onSkip = (e) => {
+      e.stopPropagation();
+      skipped = true;
+      if (cursor.isConnected) cursor.remove();
+      finish();
+    };
+
+    msg.addEventListener('click', onSkip, { once: true });
+
+    const scrollFeed = () => {
+      feed.scrollTop = feed.scrollHeight;
+    };
+
+    runTypingAnimation(textSpan, cursor, segments, text, {
+      cancelled,
+      scrollFeed,
+      timings: TIMINGS_PANEL,
+    }).then(() => {
+      if (!skipped) finish();
+    });
+  }
+
+  const BUBBLE_TEASER_TEXT = 'Can I ask you something?';
+
+  function startBubbleTeaser() {
+    const root = document.getElementById('agent-bubble');
+    const textSpan = document.getElementById('agent-bubble-teaser-text');
+    const cursorEl = document.getElementById('agent-bubble-teaser-cursor');
+    const teaserBox = document.getElementById('agent-bubble-teaser');
+    if (!textSpan || !root) return;
+
+    if (prefersReducedMotion()) {
+      textSpan.textContent = BUBBLE_TEASER_TEXT;
+      if (cursorEl && cursorEl.isConnected) cursorEl.remove();
+      root.setAttribute(
+        'aria-label',
+        `Open conversation. ${BUBBLE_TEASER_TEXT}`
+      );
+      if (teaserBox) teaserBox.setAttribute('aria-hidden', 'true');
+      return;
+    }
+
+    const segments = buildTypingSegments(BUBBLE_TEASER_TEXT, {
+      allowSemanticSubs: false,
+    });
+    const noopScroll = () => {};
+    const cancelled = () => false;
+
+    runTypingAnimation(textSpan, cursorEl, segments, BUBBLE_TEASER_TEXT, {
+      cancelled,
+      scrollFeed: noopScroll,
+      timings: TIMINGS_BUBBLE,
+    }).then(() => {
+      if (!textSpan.isConnected) return;
+      root.setAttribute(
+        'aria-label',
+        `Open conversation. ${BUBBLE_TEASER_TEXT}`
+      );
+      if (teaserBox) teaserBox.setAttribute('aria-hidden', 'true');
+    });
+  }
+
+  let prefetchFirstOpenResult = null;
+  let prefetchFirstOpenInflight = null;
+
+  function buildFirstOpenRequestBody() {
+    return {
+      messages: [
+        {
+          role: 'user',
+          content:
+            'The visitor just opened the agent. Send your opening message based on their context. Return only the JSON payload.',
+        },
+      ],
+      systemPrompt: buildSystemPrompt(),
+    };
+  }
+
+  function startPrefetchFirstOpen() {
+    if (prefetchFirstOpenInflight || prefetchFirstOpenResult) return;
+    prefetchFirstOpenInflight = (async () => {
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(buildFirstOpenRequestBody()),
+        });
+        const data = await response.json();
+        if (response.ok && !data.error) {
+          prefetchFirstOpenResult = data;
+        }
+      } catch {
+        /* ignore — firstOpen will fetch */
+      }
+      prefetchFirstOpenInflight = null;
+    })();
+  }
+
+  function consumePrefetchedFirstOpen() {
+    if (prefetchFirstOpenResult) {
+      const d = prefetchFirstOpenResult;
+      prefetchFirstOpenResult = null;
+      return d;
+    }
+    return null;
+  }
+
   function showTyping() {
     const el = document.createElement('div');
     el.className = 'agent-message is--agent agent-typing';
@@ -305,7 +638,7 @@ Return ONLY valid JSON. No markdown. No backticks. No extra text.
       try {
         parsed = JSON.parse(data.content);
       } catch {
-        renderMessage(data.content, 'agent');
+        renderAgentMessage(data.content);
         conversationHistory.push({ role: 'assistant', content: data.content });
         return;
       }
@@ -316,7 +649,7 @@ Return ONLY valid JSON. No markdown. No backticks. No extra text.
 
       handlePayload(parsed);
 
-      renderMessage(parsed.message, 'agent');
+      renderAgentMessage(parsed.message);
 
       conversationHistory.push({
         role: 'assistant',
@@ -329,57 +662,65 @@ Return ONLY valid JSON. No markdown. No backticks. No extra text.
     }
   }
 
-  async function firstOpen() {
-    showTyping();
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [
-            {
-              role: 'user',
-              content:
-                'The visitor just opened the agent. Send your opening message based on their context. Return only the JSON payload.',
-            },
-          ],
-          systemPrompt: buildSystemPrompt(),
-        }),
-      });
-
-      const data = await response.json();
-      hideTyping();
-
-      if (!response.ok || data.error) {
-        renderMessage(
-          "Hey — what kind of business are you running?",
-          'agent'
-        );
-        return;
-      }
-
-      let parsed;
-      try {
-        parsed = JSON.parse(data.content);
-      } catch {
-        renderMessage(data.content, 'agent');
-        conversationHistory.push({ role: 'assistant', content: data.content });
-        return;
-      }
-
-      if (parsed.capture && typeof parsed.capture === 'object') {
-        Object.assign(agentContext.visitor, parsed.capture);
-      }
-      handlePayload(parsed);
-      renderMessage(parsed.message, 'agent');
-      conversationHistory.push({
-        role: 'assistant',
-        content: JSON.stringify(parsed),
-      });
-    } catch {
-      hideTyping();
-      renderMessage("Hey — what kind of business are you running?", 'agent');
+  function applyFirstOpenData(data) {
+    if (!data || data.error) {
+      renderAgentMessage('Hey — what kind of business are you running?');
+      return;
     }
+
+    let parsed;
+    try {
+      parsed = JSON.parse(data.content);
+    } catch {
+      renderAgentMessage(data.content);
+      conversationHistory.push({ role: 'assistant', content: data.content });
+      return;
+    }
+
+    if (parsed.capture && typeof parsed.capture === 'object') {
+      Object.assign(agentContext.visitor, parsed.capture);
+    }
+    handlePayload(parsed);
+    renderAgentMessage(parsed.message);
+    conversationHistory.push({
+      role: 'assistant',
+      content: JSON.stringify(parsed),
+    });
+  }
+
+  async function firstOpen() {
+    let data = consumePrefetchedFirstOpen();
+
+    if (!data) {
+      showTyping();
+      if (prefetchFirstOpenInflight) {
+        await prefetchFirstOpenInflight;
+        data = consumePrefetchedFirstOpen();
+      }
+    }
+
+    if (!data) {
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(buildFirstOpenRequestBody()),
+        });
+        data = await response.json();
+        if (!response.ok || data.error) {
+          hideTyping();
+          renderAgentMessage('Hey — what kind of business are you running?');
+          return;
+        }
+      } catch {
+        hideTyping();
+        renderAgentMessage('Hey — what kind of business are you running?');
+        return;
+      }
+    }
+
+    hideTyping();
+    applyFirstOpenData(data);
   }
 
   function handleSend() {
@@ -424,6 +765,12 @@ Return ONLY valid JSON. No markdown. No backticks. No extra text.
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') handleSend();
   });
+
+  /* Teaser types on load; prefetch opening turn so first panel open feels instant */
+  setTimeout(() => {
+    startBubbleTeaser();
+    startPrefetchFirstOpen();
+  }, 150);
 
   // ── DRAGGABLE PANEL ───────────────────────────────────────
   (function makeDraggable() {
