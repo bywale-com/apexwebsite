@@ -1,4 +1,4 @@
-/* portal.js — Portal Space Systems
+/* portal.js — Web Team
    Dependencies loaded before this: Lenis CDN, GSAP, ScrollTrigger
 */
 

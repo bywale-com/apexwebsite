@@ -4,5 +4,11 @@
       "memory": 512,
       "maxDuration": 15
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/home", "destination": "/portal.html" }
+  ],
+  "redirects": [
+    { "source": "/portal.html", "destination": "/home", "permanent": true }
+  ]
 }
