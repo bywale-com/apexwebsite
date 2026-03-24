@@ -254,3 +254,48 @@ document.querySelectorAll('.cta-inner .h1, .cta-inner .p-l').forEach((el, i) => 
     scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none reverse' }
   });
 });
+
+// ── COOKIE CONSENT ────────────────────────────────────────────────────────
+(function initCookieConsent() {
+  const STORAGE_KEY = 'wt6_cookie_consent';
+  const banner = document.getElementById('cookie-consent');
+  const acceptBtn = document.getElementById('cookie-consent-accept');
+  const declineBtn = document.getElementById('cookie-consent-decline');
+  if (!banner || !acceptBtn || !declineBtn) return;
+
+  function dismiss(value) {
+    try {
+      localStorage.setItem(STORAGE_KEY, value);
+    } catch {
+      /* ignore quota / private mode */
+    }
+    banner.classList.remove('is--visible');
+    banner.setAttribute('aria-hidden', 'true');
+    const onEnd = (e) => {
+      if (e.propertyName !== 'transform') return;
+      banner.removeEventListener('transitionend', onEnd);
+      banner.setAttribute('hidden', '');
+    };
+    banner.addEventListener('transitionend', onEnd);
+    window.setTimeout(() => {
+      if (!banner.classList.contains('is--visible')) banner.setAttribute('hidden', '');
+    }, 500);
+  }
+
+  acceptBtn.addEventListener('click', () => dismiss('accepted'));
+  declineBtn.addEventListener('click', () => dismiss('declined'));
+
+  let stored = null;
+  try {
+    stored = localStorage.getItem(STORAGE_KEY);
+  } catch {
+    stored = null;
+  }
+  if (stored === 'accepted' || stored === 'declined') return;
+
+  banner.removeAttribute('hidden');
+  banner.setAttribute('aria-hidden', 'false');
+  requestAnimationFrame(() => {
+    banner.classList.add('is--visible');
+  });
+})();

@@ -10,10 +10,39 @@
 <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Geist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:wght@800;900&family=Unbounded:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="portal.css">
 </head>
 <body>
+
+<!-- ── COOKIE CONSENT ───────────────────────────────────────────────────── -->
+<div
+  id="cookie-consent"
+  class="cookie-consent"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="cookie-consent-title"
+  aria-hidden="true"
+  hidden
+>
+  <div class="cookie-consent-inner container">
+    <div class="cookie-consent-copy">
+      <p id="cookie-consent-title" class="cookie-consent-heading">Cookies</p>
+      <p class="cookie-consent-text">
+        We use cookies and similar technologies to improve your experience, remember preferences, and understand how our site is used.
+        By clicking &ldquo;Accept&rdquo;, you agree to our use of cookies as described in our approach to privacy on this site.
+      </p>
+    </div>
+    <div class="cookie-consent-actions">
+      <button type="button" class="cookie-consent-btn cookie-consent-btn--secondary" id="cookie-consent-decline" aria-label="Decline non-essential cookies">
+        Decline
+      </button>
+      <button type="button" class="cookie-consent-btn cookie-consent-btn--primary" id="cookie-consent-accept" aria-label="Accept cookies">
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- ── NAVBAR ──────────────────────────────────────────────────────────── -->
 <nav class="navbar" role="banner">
@@ -66,14 +95,16 @@
         <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M11 1L6 6.5L1 1" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
 
-      <a href="#" class="hero-news-card" aria-label="Latest news">
+      <a href="#contact" class="hero-news-card" aria-label="Learn more about WebOps and book a session">
         <div class="hero-news-card-overlay" aria-hidden="true"></div>
         <div class="hero-news-card-body">
           <p class="hero-news-label">Latest</p>
           <p class="hero-news-text">WebTeam ships a measurable conversion system that books more calls</p>
-          <span class="hero-news-read">Read more</span>
+          <span class="hero-news-read">Learn more</span>
         </div>
-        <div class="hero-news-thumb" aria-hidden="true"></div>
+        <div class="hero-news-thumb" aria-hidden="true">
+          <img src="./cta_image.jpg" alt="" loading="lazy" />
+        </div>
       </a>
     </div>
   </div>
@@ -455,7 +486,7 @@
       <a href="#" class="footer-link">News</a>
       <a href="#contact" class="footer-link">Contact</a>
     </nav>
-    <a href="mailto:hello@apexintro.com" class="footer-contact">hello@apexintro.com</a>
+    <a href="mailto:team@webteam.click" class="footer-contact">team@webteam.click</a>
     <p class="footer-copy">© 2025, Web Team Six</p>
   </div>
 </footer>
@@ -496,23 +527,37 @@
     aria-hidden="true"></video>
   <div class="agent-panel-scrim" aria-hidden="true"></div>
   <button type="button" id="agent-close" class="agent-close" aria-label="Close">×</button>
-  <div id="agent-feed" class="agent-feed">
-    <!-- messages render here -->
-  </div>
-  <div class="agent-input-row">
-    <input id="agent-input" type="text" placeholder="Type something..." autocomplete="off" />
-    <button type="button" id="agent-send" class="agent-send-btn" aria-label="Send message">
-      <!-- mic icon -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-        <line x1="12" y1="19" x2="12" y2="23"/>
-        <line x1="8" y1="23" x2="16" y2="23"/>
-      </svg>
-    </button>
+  <div class="agent-panel-body">
+    <div id="agent-feed" class="agent-feed">
+      <!-- messages render here -->
+    </div>
+    <div class="agent-input-row">
+      <input id="agent-input" type="text" placeholder="Type something…" autocomplete="off" />
+      <button type="button" id="agent-send" class="agent-send-btn" aria-label="Send message or toggle voice" title="Send message (demo: tap to continue)">
+        <!-- mic icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </button>
+    </div>
+    <div class="agent-panel-spacer" aria-hidden="true"></div>
   </div>
 </div>
 
+<aside id="agent-notepad" class="agent-notepad" aria-label="Agent notes" hidden>
+  <div class="agent-notepad-rail"></div>
+  <div class="agent-notepad-inner">
+    <p class="agent-notepad-title">Session notes</p>
+    <ul id="agent-notepad-list" class="agent-notepad-list">
+      <li>Enhanced experience active</li>
+      <li>Mic / voice lane toggled on</li>
+      <li>Visitor engaged with demo script</li>
+    </ul>
+  </div>
+</aside>
 
 <!-- ── DEPENDENCIES ──────────────────────────────────────────────────────── -->
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
